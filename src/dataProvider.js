@@ -85,19 +85,25 @@ const convertHTTPResponseToDataProvider = (
   switch (type) {
     case GET_LIST:
       return {
-        data: json.map(x => x),
-        total: parseInt(
-          headers
-            .get('content-range')
-            .split('/')
-            .pop(),
-          10
-        )
+        data: json[resource].map(x => {
+          const { _id, ...rest } = x;
+          const item = Object.assign({}, rest);
+          item.id = x._id;
+          return item;
+        }),
+        total: json.count
       };
     case CREATE:
       return { data: { ...params.data, id: json.id } };
     default:
-      return { data: json };
+      return {
+        data: json[resource].map(x => {
+          const { _id, ...rest } = x;
+          const item = Object.assign({}, rest);
+          item.id = x._id;
+          return item;
+        })
+      };
   }
 };
 
