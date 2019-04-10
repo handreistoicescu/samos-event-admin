@@ -1,12 +1,25 @@
 import React from 'react';
-import { Datagrid, List, TextField } from 'react-admin';
+import {
+  Datagrid,
+  EditButton,
+  List,
+  ReferenceField,
+  TextField,
+  UrlField
+} from 'react-admin';
 
 const EventList = props => (
   <List {...props}>
-    <Datagrid>
+    <Datagrid rowClick="edit">
       <TextField source="name" />
-      <TextField source="id" />
-      <TextField source="title" />
+      <ReferenceField source="venue" reference="venues">
+        <TextField source="name" />
+      </ReferenceField>
+      <TextField source="type" />
+      <TextField source="date" />
+      <UrlField source="link" />
+      <TextField source="status" />
+      <EditButton />
     </Datagrid>
   </List>
 );
