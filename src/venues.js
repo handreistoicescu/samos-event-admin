@@ -1,5 +1,16 @@
 import React from 'react';
-import { Datagrid, EditButton, List, TextField, UrlField } from 'react-admin';
+import {
+  Create,
+  Datagrid,
+  DisabledInput,
+  Edit,
+  EditButton,
+  List,
+  SimpleForm,
+  TextField,
+  TextInput,
+  UrlField
+} from 'react-admin';
 
 const VenueList = props => (
   <List {...props}>
@@ -9,6 +20,25 @@ const VenueList = props => (
       <EditButton />
     </Datagrid>
   </List>
+);
+
+export const VenueCreate = props => (
+  <Create {...props}>
+    <SimpleForm>
+      <TextInput source="name" />
+      <TextInput source="link" />
+    </SimpleForm>
+  </Create>
+);
+
+export const VenueEdit = props => (
+  <Edit {...props}>
+    <SimpleForm>
+      <DisabledInput source="id" />
+      <TextInput source="name" />
+      <TextInput source="link" />
+    </SimpleForm>
+  </Edit>
 );
 
 export default VenueList;

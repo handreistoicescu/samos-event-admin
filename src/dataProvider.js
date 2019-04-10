@@ -31,6 +31,7 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
       return { url: `${API_URL}/${resource}?${stringify(query)}` };
     }
     case GET_ONE:
+      console.log(`${API_URL}/${resource}/${params.id}`);
       return { url: `${API_URL}/${resource}/${params.id}` };
     case GET_MANY: {
       const query = {
@@ -82,6 +83,19 @@ const convertHTTPResponseToDataProvider = (
   params
 ) => {
   const { headers, json } = response;
+
+  let singularizedResource = '';
+  switch (resource) {
+    case 'events':
+      singularizedResource = 'event';
+      break;
+    case 'venues':
+      singularizedResource = 'venue';
+      break;
+    default:
+      singularizedResource = '';
+  }
+
   switch (type) {
     case GET_LIST:
       return {
@@ -92,6 +106,17 @@ const convertHTTPResponseToDataProvider = (
           return item;
         }),
         total: json.count
+      };
+    case GET_ONE:
+      console.log(type, singularizedResource);
+
+      const { _id, ...rest } = json[singularizedResource];
+
+      const item = Object.assign({}, rest);
+      item.id = json[singularizedResource]._id;
+
+      return {
+        data: item
       };
     case CREATE:
       return { data: { ...params.data, id: json.id } };
