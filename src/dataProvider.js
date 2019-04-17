@@ -31,7 +31,6 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
       return { url: `${API_URL}/${resource}?${stringify(query)}` };
     }
     case GET_ONE:
-      console.log(`${API_URL}/${resource}/${params.id}`);
       return { url: `${API_URL}/${resource}/${params.id}` };
     case GET_MANY: {
       const query = {
@@ -52,7 +51,19 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
     case UPDATE:
       return {
         url: `${API_URL}/${resource}/${params.id}`,
-        options: { method: 'PUT', body: JSON.stringify(params.data) }
+        options: {
+          method: 'PATCH',
+          body: JSON.stringify(
+            Object.keys(params.data)
+              .filter(key => key !== 'request')
+              .map(key => {
+                return {
+                  propName: key,
+                  value: params.data[key]
+                };
+              })
+          )
+        }
       };
     case CREATE:
       return {
@@ -84,50 +95,21 @@ const convertHTTPResponseToDataProvider = (
 ) => {
   const { headers, json } = response;
 
-  let singularizedResource = '';
-  switch (resource) {
-    case 'events':
-      singularizedResource = 'event';
-      break;
-    case 'venues':
-      singularizedResource = 'venue';
-      break;
-    default:
-      singularizedResource = '';
-  }
-
   switch (type) {
     case GET_LIST:
       return {
-        data: json[resource].map(x => {
-          const { _id, ...rest } = x;
-          const item = Object.assign({}, rest);
-          item.id = x._id;
-          return item;
-        }),
-        total: json.count
+        data: json[resource],
+        total: parseInt(headers.get('Content-Range'), 10)
       };
     case GET_ONE:
-      console.log(type, singularizedResource);
-
-      const { _id, ...rest } = json[singularizedResource];
-
-      const item = Object.assign({}, rest);
-      item.id = json[singularizedResource]._id;
-
       return {
-        data: item
+        data: json[resource][0]
       };
     case CREATE:
       return { data: { ...params.data, id: json.id } };
     default:
       return {
-        data: json[resource].map(x => {
-          const { _id, ...rest } = x;
-          const item = Object.assign({}, rest);
-          item.id = x._id;
-          return item;
-        })
+        data: json[resource]
       };
   }
 };

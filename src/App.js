@@ -1,6 +1,7 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
 import dataProvider from './dataProvider';
+// import simpleRestProvider from 'ra-data-simple-rest';
 import EventList from './events';
 import VenueList, { VenueCreate, VenueEdit } from './venues';
 import Dashboard from './Dashboard';
