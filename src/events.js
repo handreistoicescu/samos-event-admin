@@ -1,10 +1,19 @@
 import React from 'react';
 import {
+  BooleanInput,
+  Create,
   Datagrid,
+  DateInput,
+  DisabledInput,
+  Edit,
   EditButton,
   List,
   ReferenceField,
+  ReferenceInput,
+  SelectInput,
+  SimpleForm,
   TextField,
+  TextInput,
   UrlField
 } from 'react-admin';
 
@@ -22,6 +31,31 @@ const EventList = props => (
       <EditButton />
     </Datagrid>
   </List>
+);
+
+export const EventCreate = props => (
+  <Create {...props}>
+    <SimpleForm>
+      <TextInput source="name" />
+      <TextInput source="link" />
+    </SimpleForm>
+  </Create>
+);
+
+export const EventEdit = props => (
+  <Edit {...props}>
+    <SimpleForm>
+      <DisabledInput source="id" />
+      <DateInput source="date" />
+      <TextInput source="link" />
+      <TextInput source="name" />
+      <BooleanInput source="published" />
+      <TextInput source="type" />
+      <ReferenceInput source="venue" reference="venues">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+    </SimpleForm>
+  </Edit>
 );
 
 export default EventList;

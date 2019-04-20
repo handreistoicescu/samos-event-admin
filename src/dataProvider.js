@@ -24,9 +24,10 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
       const { page, perPage } = params.pagination;
       const { field, order } = params.sort;
       const query = {
-        sort: JSON.stringify([field, order]),
-        range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-        filter: JSON.stringify(params.filter)
+        sort_by: `${order === 'DESC' ? '-' : ''}${field}`,
+        skip: (page - 1) * perPage,
+        limit: page * perPage - 1
+        // filter: JSON.stringify(params.filter)
       };
       return { url: `${API_URL}/${resource}?${stringify(query)}` };
     }
@@ -101,15 +102,14 @@ const convertHTTPResponseToDataProvider = (
         data: json[resource],
         total: parseInt(headers.get('Content-Range'), 10)
       };
-    case GET_ONE:
+    case GET_MANY:
       return {
-        data: json[resource][0]
+        data: json[resource],
+        total: parseInt(headers.get('Content-Range'), 10)
       };
-    case CREATE:
-      return { data: { ...params.data, id: json.id } };
     default:
       return {
-        data: json[resource]
+        data: json[resource][0]
       };
   }
 };
