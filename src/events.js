@@ -37,7 +37,13 @@ export const EventCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />
+      <TextInput source="type" />
+      <ReferenceInput source="venue" reference="venues">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <DateInput source="date" />
       <TextInput source="link" />
+      <BooleanInput source="published" />
     </SimpleForm>
   </Create>
 );
@@ -46,14 +52,14 @@ export const EventEdit = props => (
   <Edit {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
-      <DateInput source="date" />
-      <TextInput source="link" />
       <TextInput source="name" />
-      <BooleanInput source="published" />
       <TextInput source="type" />
       <ReferenceInput source="venue" reference="venues">
         <SelectInput optionText="name" />
       </ReferenceInput>
+      <DateInput source="date" />
+      <TextInput source="link" />
+      <BooleanInput source="published" />
     </SimpleForm>
   </Edit>
 );
