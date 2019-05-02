@@ -24,7 +24,9 @@ const EventList = props => (
       <ReferenceField source="venue" reference="venues">
         <TextField source="name" />
       </ReferenceField>
-      <TextField source="type" />
+      <ReferenceField source="type" reference="eventTypes">
+        <TextField source="name" />
+      </ReferenceField>
       <TextField source="date" />
       <UrlField source="link" />
       <TextField source="status" />
@@ -37,7 +39,9 @@ export const EventCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />
-      <TextInput source="type" />
+      <ReferenceInput source="type" reference="eventTypes">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       <ReferenceInput source="venue" reference="venues">
         <SelectInput optionText="name" />
       </ReferenceInput>
@@ -53,7 +57,9 @@ export const EventEdit = props => (
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="name" />
-      <TextInput source="type" />
+      <ReferenceInput source="type" reference="eventTypes">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       <ReferenceInput source="venue" reference="venues">
         <SelectInput optionText="name" />
       </ReferenceInput>
