@@ -20,12 +20,6 @@ const App = () => (
       list={VenueList}
       name="venues"
     />
-    {/* <Resource
-      create={PostCreate}
-      edit={PostEdit}
-      list={PostList}
-      name="posts"
-    /> */}
   </Admin>
 );
 
