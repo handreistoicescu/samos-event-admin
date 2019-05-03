@@ -19,7 +19,7 @@ import {
 } from 'react-admin';
 
 const EventList = props => (
-  <List {...props}>
+  <List {...props} sort={{ field: 'date', order: 'DESC' }} perPage={999}>
     <Datagrid rowClick="edit">
       <DateField
         options={{

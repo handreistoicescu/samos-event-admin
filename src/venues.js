@@ -13,7 +13,7 @@ import {
 } from 'react-admin';
 
 const VenueList = props => (
-  <List {...props}>
+  <List {...props} perPage={999}>
     <Datagrid rowClick="edit">
       <TextField source="name" />
       <UrlField source="link" />

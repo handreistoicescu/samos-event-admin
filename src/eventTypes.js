@@ -12,7 +12,7 @@ import {
 } from 'react-admin';
 
 const EventTypeList = props => (
-  <List {...props}>
+  <List {...props} perPage={999}>
     <Datagrid rowClick="edit">
       <TextField source="name" />
       <EditButton />
