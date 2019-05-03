@@ -13,7 +13,7 @@ import {
 } from 'react-admin';
 
 const VenueList = props => (
-  <List {...props} perPage={999}>
+  <List {...props} perPage={999} sort={{ field: 'name', order: 'ASC' }}>
     <Datagrid rowClick="edit">
       <TextField source="name" />
       <UrlField source="link" />
