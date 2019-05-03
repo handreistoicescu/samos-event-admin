@@ -3,6 +3,7 @@ import {
   BooleanInput,
   Create,
   Datagrid,
+  DateField,
   DateInput,
   DisabledInput,
   Edit,
@@ -20,14 +21,22 @@ import {
 const EventList = props => (
   <List {...props}>
     <Datagrid rowClick="edit">
+      <DateField
+        options={{
+          weekday: 'short',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }}
+        source="date"
+      />
       <TextField source="name" />
-      <ReferenceField source="venue" reference="venues">
-        <TextField source="name" />
-      </ReferenceField>
       <ReferenceField source="type" reference="eventTypes">
         <TextField source="name" />
       </ReferenceField>
-      <TextField source="date" />
+      <ReferenceField source="venue" reference="venues">
+        <TextField source="name" />
+      </ReferenceField>
       <UrlField source="link" />
       <TextField source="status" />
       <EditButton />
