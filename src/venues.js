@@ -18,6 +18,7 @@ const VenueList = props => (
     bulkActionButtons={false}
     perPage={999}
     sort={{ field: 'name', order: 'ASC' }}
+    title="Venues"
   >
     <Datagrid rowClick="edit">
       <TextField source="name" />
@@ -36,8 +37,12 @@ export const VenueCreate = props => (
   </Create>
 );
 
+const VenueTitle = ({ record }) => (
+  <span>{record ? `Venue: "${record.name}"` : ''}</span>
+);
+
 export const VenueEdit = props => (
-  <Edit {...props}>
+  <Edit title={<VenueTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="name" />

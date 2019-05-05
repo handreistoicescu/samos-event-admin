@@ -24,6 +24,7 @@ const EventList = props => (
     bulkActionButtons={false}
     sort={{ field: 'date', order: 'DESC' }}
     perPage={999}
+    title="Events"
   >
     <Datagrid rowClick="edit">
       <DateField
@@ -66,8 +67,12 @@ export const EventCreate = props => (
   </Create>
 );
 
+const EventTitle = ({ record }) => (
+  <span>{record ? `Event: "${record.name}"` : ''}</span>
+);
+
 export const EventEdit = props => (
-  <Edit {...props}>
+  <Edit title={<EventTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="name" />

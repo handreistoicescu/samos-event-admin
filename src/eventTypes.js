@@ -17,6 +17,7 @@ const EventTypeList = props => (
     bulkActionButtons={false}
     perPage={999}
     sort={{ field: 'name', order: 'ASC' }}
+    title="Event Types"
   >
     <Datagrid rowClick="edit">
       <TextField source="name" />
@@ -33,8 +34,12 @@ export const EventTypeCreate = props => (
   </Create>
 );
 
+const EventTypeTitle = ({ record }) => (
+  <span>{record ? `Event: "${record.name}"` : ''}</span>
+);
+
 export const EventTypeEdit = props => (
-  <Edit {...props}>
+  <Edit title={<EventTypeTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="name" />
