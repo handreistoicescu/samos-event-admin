@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-dev": "REACT_APP_API_URL=https://zq3s394g1b.execute-api.eu-central-1.amazonaws.com/development react-scripts build",
+    "build-dev": "REACT_APP_API_URL=https://sp2ttjinr5.execute-api.eu-central-1.amazonaws.com/development react-scripts build",
     "deploy-dev": "aws s3 sync build s3://admin-dev.samos.ro --delete --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers",
     "deploy-prod": "aws s3 sync build s3://admin.samos.ro --delete --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers",
     "test": "react-scripts test",
